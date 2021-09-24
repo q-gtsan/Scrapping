@@ -1,6 +1,9 @@
 import plylst-grab.py
 import sqlite3
 
+df_test = pd.read_csv("wdr2-plylst (2).csv")
+print(df_text.head())
+
 conn = sqlite3.connect("playlist_radio.db")
 c = conn.cursor()
 
