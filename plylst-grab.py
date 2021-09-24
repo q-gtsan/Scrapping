@@ -44,7 +44,7 @@ def plylstToDataFrame(lst = list):
     lst_1.append(value)
   lst_1 = sorted(lst_1)  
   ply_df = pd.DataFrame(lst_1, columns=['Datum','Song','Interpret']).set_index('Datum', drop=True)
-  ply_df.index = pd.to_datetime(ply_df.index, format='%d.%m.%Y,%H.%M Uhr')
+  #ply_df.index = pd.to_datetime(ply_df.index, format='%d.%m.%Y,%H.%M Uhr')
   return ply_df
   #die Playliste in ein DataFrame konvertieren und die Spalte 'Datum' als index setzen + in datetime-Object umwandeln
 
@@ -54,7 +54,7 @@ def load_add_save(df = pd.DataFrame):
   wdr2_Obj = wdr2_Obj.append(df)
   wdr2_Obj.to_csv("wdr2-plylst.csv")
 
-wdr2_list = grab()
-wdr2_df = plylstToDataFrame(wdr2_list)
-load_add_save(wdr2_df)
-print("successfulyy appended")
+#wdr2_list = grab()
+#wdr2_df = plylstToDataFrame(wdr2_list)
+#load_add_save(wdr2_df)
+#print("successfulyy appended")
