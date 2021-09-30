@@ -1,16 +1,39 @@
-import plylst-grab.py
+import plylst_grab as pg
+import pandas as pd
 import sqlite3
 
-df_test = pd.read_csv("wdr2-plylst (2).csv")
-print(df_text.head())
+def into_sql():
+    """Scraping Playlist and insert into database"""
+    #Connect to database
+    conn = sqlite3.connect("playlist_radio.db")
 
-conn = sqlite3.connect("playlist_radio.db")
-c = conn.cursor()
+    #Creating a cursor for selecting
+    #c = conn.cursor()
 
-#c.execute('''CREATE TABLE wdr2(Datum as DATETIME, Song as TEXT, Interpret as TEXT)''')
+    #Creating a table with 3 columns
+    #c.execute('''CREATE TABLE wdr2_table(Datum DATETIME, Song TEXT, Interpret TEXT)''')
 
-wdr2_list = grab()
-wdr2_df = plylstToDataFrame(wdr2_list)
+    #grab the information and insert into sql database
+    wdr2_list = pg.grab()
+    wdr2_df = pg.plylstToDataFrame(wdr2_list)
+    wdr2_df.to_sql("wdr2_table", conn, if_exists="append", index=True)
+    #print(wdr2_df.head())
+    #print(pd.read_sql('select * from wdr2_table', conn))
 
-wdr2_df.to_sql("wdr2_table", conn, if_exists="append", index=False)
-pd.read_sql('select * from new_table_name', conn)
+    conn.close()
+
+def last_entries():
+    """Export dataframe of the database table wdr2"""
+    conn = sqlite3.connect("playlist_radio.db")
+    c = conn.cursor()
+
+    # c.execute("select * from wdr2_table")
+
+    # content = c.fetchall()
+
+    # Selecting data from table and export into a csv file
+    db_wdr2 = pd.read_sql('select * from wdr2_table', conn)
+    last_entries_wdr2 = db_wdr2.tail(30)
+    last_entries_wdr2.to_csv("test_wdr2.csv")
+
+    conn.close()

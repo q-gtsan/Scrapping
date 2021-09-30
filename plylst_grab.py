@@ -1,9 +1,9 @@
-import requests
+#import requests
 import pandas as pd
 import bs4 as bs
 import urllib.request
-import csv
-import lxml
+#import csv
+#import lxml
 
 def grab():
   """Grabbing and Returning the playlist table"""
@@ -48,11 +48,6 @@ def plylstToDataFrame(lst = list):
   return ply_df
   #die Playliste in ein DataFrame konvertieren und die Spalte 'Datum' als index setzen + in datetime-Object umwandeln
 
-def load_add_save(df = pd.DataFrame):
-  """Loading an existing DataFrame with 'Date', 'Song' and 'Interpret', Adding new data and saving"""
-  wdr2_Obj = pd.read_csv("wdr2-plylst.csv", index_col=0)
-  wdr2_Obj = wdr2_Obj.append(df)
-  wdr2_Obj.to_csv("wdr2-plylst.csv")
 
 #wdr2_list = grab()
 #wdr2_df = plylstToDataFrame(wdr2_list)
